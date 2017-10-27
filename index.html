@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ajax</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<style>
+		
+	</style>
+</head>
+<body>
+
+<div>
+
+<button id="btn">click</button>
+
+<script src="js/script.js"></script>
+<script>
+window.onload = function(){
+	var btn = document.getElementById("btn");
+
+	btn.onclick = function(){
+		ajax({
+			url: 'http://i.xbiao.com/act',
+			type: 'get',
+			// data: {
+			// 	page: 2
+			// },
+			dataType: "jsonp",
+			jsonp: "jsoncallback",
+			success: function(data){
+				console.log(data);
+			}
+		})
+	}
+
+
+
+
+
+
+
+
+
+
+}
+</script>
+</body>
+</html>
