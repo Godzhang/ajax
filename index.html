@@ -18,14 +18,15 @@
 <script>
 window.onload = function(){
 	var btn = document.getElementById("btn");
-
+	var i = 1;
 	btn.onclick = function(){
 		ajax({
 			url: 'http://i.xbiao.com/act',
 			type: 'get',
-			// data: {
-			// 	page: 2
-			// },
+			data: {
+				page: 2,
+				name: "zhangqi"
+			},
 			dataType: "jsonp",
 			jsonp: "jsoncallback",
 			success: function(data){
@@ -33,16 +34,6 @@ window.onload = function(){
 			}
 		})
 	}
-
-
-
-
-
-
-
-
-
-
 }
 </script>
 </body>

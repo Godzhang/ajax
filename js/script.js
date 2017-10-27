@@ -2,7 +2,31 @@
 	var ajax = function(options){
 		//编码数据
 		function setData(){
-
+			var name, value, arr = [];
+			if(data){
+				if(typeof data === "string"){
+					data = data.split("&");
+					for(var i = 0, len = data.length; i < len; i++){
+						var res = data[i].split('=');
+						name = res[0];
+						value = res[1];
+						arr[i] = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+					}
+				}else if(typeof data === "object"){
+					var arr = [];
+					for(var name in data){
+						value = data[name].toString();
+						name = encodeURIComponent(name);
+						value = encodeURIComponent(value);
+						arr.push(name + "=" + value);
+					}	
+				}
+				data = arr.join("&").replace(/%20/g, "+");
+				//若是使用get方法或jsonp，则手动添加到url中
+				if(type === 'get' || dataType === 'jsonp'){
+					url += url.indexOf("?") > -1 ? data : "?" + data;
+				}
+			}
 		}
 
 		function getXHR(){
@@ -90,15 +114,16 @@
 					}
 				}
 			}
-			xhr.onprogress = function(event){
-				//event属性：
-				//lengthComputable: 表示进度信息是否可用
-				//position: 已经接受的字节数
-				//totalSize: 根据Content-Length响应头确定的预期字节数
-				if(event.lengthComputable){
-					progress(event.position, event.totalSize);
-				}
-			}
+			// xhr.onprogress = function(event){
+			// 	console.log(event)
+			// 	//event属性：
+			// 	//lengthComputable: 表示进度信息是否可用
+			// 	//position: 已经接受的字节数
+			// 	//totalSize: 根据Content-Length响应头确定的预期字节数
+			// 	if(event.lengthComputable){
+			// 		progress(event.position, event.totalSize);
+			// 	}
+			// }
 
 			//添加超时处理(由于只兼容IE8+，不采用)
 			// xhr.timeout = timeOut;
